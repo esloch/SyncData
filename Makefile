@@ -1,11 +1,12 @@
-# Deploy production and staging
-# note: --env-file requires docker-compose>=1.25
-#       ref: https://github.com/docker/compose/pull/6535
+#######################################################
+## Automate container recreation for dengue database ##
+#######################################################
+
 
 include $(ENVFILE)
 export
 
-# docker specific
+# Docker specific
 COMPOSE_FILE := docker/docker-compose.yml
 DOCKER := PYTHON_VERSION=$(PYTHON_VERSION) docker-compose -f $(COMPOSE_FILE) --env-file .env
 DOCKER_UP := $(DOCKER) up
