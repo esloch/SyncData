@@ -1,0 +1,11 @@
+PSQL_DB=dengue
+PSQL_DBF=infodengue
+PSQL_USER=administrador
+PSQL_PASSWORD=123mudar
+PSQL_HOST=localhost
+PSQL_PORT=25432
+
+DB_USER=user_dumps
+DB_PASSWORD=xitara45vyz1
+
+STAGING_DATA_DIR=/tmp/data
