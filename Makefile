@@ -13,7 +13,7 @@ DOCKER_RUN := $(DOCKER) run --rm
 DOCKER_BUILD := $(DOCKER) build
 DOCKER_STOP := $(DOCKER) rm --force --stop
 DOCKER_EXEC := $(DOCKER) exec
-DOCKER_REMOVE := $(DOCKER)
+DOCKER_REMOVE := $(DOCKER) down --remove-orphans
 SERVICES := dengue_db
 
 
@@ -40,11 +40,9 @@ recreate_container:
 	make download_demodb
 	make deploy
 
-remove_container:
-	$(DOCKER_STOP)
-
 remove_image_dengue_db:
-	$(DOCKER_REMOVE) down --remove-orphans
+	$(DOCKER_STOP)
+	$(DOCKER_REMOVE)
 
 
 clean:
