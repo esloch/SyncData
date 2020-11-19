@@ -1,1 +1,2 @@
 .env
+docker/dev_dumps/*.gz

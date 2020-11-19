@@ -14,7 +14,9 @@ DOCKER_RUN := $(DOCKER) run --rm
 DOCKER_BUILD := $(DOCKER) build
 DOCKER_STOP := $(DOCKER) rm --force --stop
 DOCKER_EXEC := $(DOCKER) exec
-DOCKER_REMOVE := $(DOCKER) down --remove-orphans
+DOCKER_NETWORK_REMOVE := $(DOCKER) down --remove-orphans
+DOCKER_IMAGES := $(docker images -q 'docker_dengue_db' | uniq)
+DOCKER_REMOVE := docker rmi --force $(DOCKER_IMAGES) ###
 SERVICES := dengue_db
 
 
@@ -38,7 +40,7 @@ exec: deploy
 
 recreate_container:
 	make remove_image_dengue_db
-	make download_demodb
+	make download_dev_dumps
 	make deploy
 
 remove_image_dengue_db:
