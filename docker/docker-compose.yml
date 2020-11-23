@@ -10,5 +10,5 @@ services:
       ports:
         - "25432:25432"
       volumes:
-        - ../:/Data
-        - ${STAGING_DATA_DIR}:/var/lib/postgresql/data
+        - ${DUMPS_DIR}:/dumps/
+        - ${DBDATA_DIR}:/var/lib/postgresql/data

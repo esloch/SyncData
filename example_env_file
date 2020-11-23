@@ -8,4 +8,5 @@ PSQL_PORT=25432
 DB_USER=user_dumps
 DB_PASSWORD=xitara45vyz1
 
-STAGING_DATA_DIR=/tmp/data
+DBDATA_DIR=docker/dbdata
+DUMPS_DIR=docker/dev_dumps

@@ -7,8 +7,5 @@ RUN apt-get -qq update --yes \
     && rm -rf /var/lib/apt/lists/*
 
 ADD docker/postgres_setup/* /docker-entrypoint-initdb.d/
-ADD docker/dev_dumps /dumps/
-
-# USER postgres
 
 WORKDIR /Data
