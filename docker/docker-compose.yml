@@ -3,12 +3,19 @@ services:
     dengue_db:
       build:
         context: ".."
+        args:
+          DUMPS_DIR: ${DUMPS_DIR}
+          DBDATA_DIR: ${DBDATA_DIR}
         dockerfile: "docker/Dockerfile"
       env_file:
         - ../.env
       hostname: dengue_db
       ports:
-        - "25432:25432"
+        - "15432:15432"
       volumes:
-        - ${DUMPS_DIR}:/dumps/
-        - ${DBDATA_DIR}:/var/lib/postgresql/data
+        - ${DUMPS_DIR}/:/dumps/
+        - ${DBDATA_DIR}/:/var/lib/postgresql/data
+      restart: always
+      command: -p 15432
+      expose:
+        - "15432"
