@@ -3,14 +3,12 @@
 ### Requirements:
 
 #### Update and install essentials  
-`` bash
-$ sudo apt update && sudo apt -y upgrade \
-   build-essential git make wget vim
+`` $ sudo apt update && sudo apt -y upgrade build-essential git make wget vim
 ``
 ##### Get Docker:
-* https: //docs.docker.com/engine/install/ubuntu/*
+  *https: //docs.docker.com/engine/install/ubuntu/*
 ### Install Docker Compose:
-* https: //docs.docker.com/compose/install/*
+  *https: //docs.docker.com/compose/install/*
 
 ### Make commands
 <i> <b>build services to images docker</b></i></br>
