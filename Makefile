@@ -16,7 +16,7 @@ DOCKER_BUILD := $(DOCKER) build
 DOCKER_STOP := $(DOCKER) rm --force --stop
 DOCKER_EXEC := $(DOCKER) exec
 DOCKER_NETWORK_REMOVE := $(DOCKER) down --remove-orphans
-DOCKER_REMOVE := docker image prune --all ###
+DOCKER_REMOVE := $(DOCKER) down --remove-orphans
 SERVICES := dengue_db
 
 
@@ -40,7 +40,8 @@ exec: deploy
 
 recreate_container:
 	make remove_image_dengue_db
-	make download_dev_dumps
+	# make download_dev_dumps
+	make download_demodb
 	make deploy
 
 remove_image_dengue_db:
