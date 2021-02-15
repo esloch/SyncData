@@ -26,7 +26,7 @@ download_demodb:
 
 # Download the database to the container
 download_dev_dumps:
-	env $(cat .env) ./docker/download_dumps.sh
+	bash docker/download_dumps.sh
 
 # Configure database in the container
 build:
