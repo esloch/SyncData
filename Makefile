@@ -2,20 +2,18 @@
 ## Automate container recreation for dengue database ##
 #######################################################
 
-
-include $(ENVFILE)
-export
+include .env
 
 # Docker specific
+ENV_FILE := .env
 COMPOSE_FILE := docker/docker-compose.yml
 NETWORK := infodengue
-DOCKER := PYTHON_VERSION=$(PYTHON_VERSION) docker-compose -p $(NETWORK) -f $(COMPOSE_FILE) --env-file .env
+DOCKER := PYTHON_VERSION=$(PYTHON_VERSION) docker-compose -p $(NETWORK) -f $(COMPOSE_FILE) --env-file $(PWD)/$(ENV_FILE)
 DOCKER_UP := $(DOCKER) up
 DOCKER_RUN := $(DOCKER) run --rm
 DOCKER_BUILD := $(DOCKER) build
 DOCKER_STOP := $(DOCKER) rm --force --stop
 DOCKER_EXEC := $(DOCKER) exec
-DOCKER_NETWORK_REMOVE := $(DOCKER) down --remove-orphans
 DOCKER_REMOVE := $(DOCKER) down --remove-orphans
 SERVICES := dengue_db
 

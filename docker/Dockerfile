@@ -8,3 +8,4 @@ RUN apt-get -qq update --yes \
 
 
 ADD docker/postgres_setup/* /docker-entrypoint-initdb.d/
+ADD docker/dev_dumps /dumps
