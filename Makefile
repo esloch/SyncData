@@ -17,7 +17,7 @@ DOCKER_STOP := $(DOCKER) rm --force --stop
 DOCKER_EXEC := $(DOCKER) exec
 DOCKER_NETWORK_REMOVE := $(DOCKER) down --remove-orphans
 DOCKER_IMAGES := $(docker images -q 'docker_dengue_db' | uniq)
-DOCKER_REMOVE := docker rmi --force $(DOCKER_IMAGES) ###
+DOCKER_REMOVE := docker images -a |  grep "$(SERVICES)" | awk '{print $1}' | xargs docker rmi
 SERVICES := dengue_db
 
 
