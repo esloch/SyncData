@@ -8,7 +8,8 @@ export
 
 # Docker specific
 COMPOSE_FILE := docker/docker-compose.yml
-DOCKER := PYTHON_VERSION=$(PYTHON_VERSION) docker-compose -f $(COMPOSE_FILE) --env-file .env
+NETWORK := infodengue
+DOCKER := PYTHON_VERSION=$(PYTHON_VERSION) docker-compose -p $(NETWORK) -f $(COMPOSE_FILE) --env-file .env
 DOCKER_UP := $(DOCKER) up
 DOCKER_RUN := $(DOCKER) run --rm
 DOCKER_BUILD := $(DOCKER) build
