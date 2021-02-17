@@ -16,5 +16,5 @@ services:
       restart: always
       command: -p 15432
       expose:
-        - "15432
+        - "15432"
 
