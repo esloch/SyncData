@@ -6,45 +6,60 @@ include .env
 
 # Docker specific
 ENV_FILE := .env
+PROJECT_NAME := infodengue
 COMPOSE_FILE := docker/docker-compose.yml
-NETWORK := infodengue
-DOCKER := PYTHON_VERSION=$(PYTHON_VERSION) docker-compose -p $(NETWORK) -f $(COMPOSE_FILE) --env-file $(PWD)/$(ENV_FILE)
-DOCKER_UP := $(DOCKER) up
-DOCKER_RUN := $(DOCKER) run --rm
-DOCKER_BUILD := $(DOCKER) build
-DOCKER_STOP := $(DOCKER) rm --force --stop
-DOCKER_EXEC := $(DOCKER) exec
-DOCKER_REMOVE := $(DOCKER) down --remove-orphans
-SERVICES := dengue_db
+COMPOSE_FILE_ := docker/nsync-compose.yml
+DOCKER := docker-compose -p $(PROJECT_NAME)
+DOCKER_UP := up  --remove-orphans -d --no-build
+DOCKER_STOP := rm --force --stop
 
+SERVICES_STORAGE := nsync_storage
+SERVICES_DATABASE := dengue_db
+
+
+# DENGUE DATABASE
 
 # Download database to test in CI
 download_demodb:
 	bash ci/_download_dbdemo.sh
 
 # Download the database to the container
-download_dev_dumps:
+download_denguedb:
 	bash docker/download_dumps.sh
 
 # Configure database in the container
-build:
-	$(DOCKER_BUILD)
+build_denguedb:
+	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build
 
-deploy:
-	$(DOCKER_UP) -d
+deploy_denguedb:
+	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) $(DOCKER_UP)
 
-exec: deploy
-	$(DOCKER_EXEC) $(SERVICES) bash
+exec_denguedb:
+	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) exec $(SERVICES_DATABASE) bash
 
-recreate_container:
-	make remove_image_dengue_db
-	# make download_dev_dumps
-	make download_demodb
-	make deploy
+stop_denguedb:
+	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) $(DOCKER_STOP)
 
-remove_image_dengue_db:
-	$(DOCKER_STOP)
-	$(DOCKER_REMOVE)
+recreate_container_denguedb:
+	make stop_denguedb
+	# make download_demodb
+	make download_denguedb
+	make build_denguedb
+
+
+# NSYNC STORAGE
+
+build_nsync:
+	$(DOCKER) -f $(COMPOSE_FILE_) --env-file $(ENV_FILE) build
+
+deploy_nsync:
+	$(DOCKER) -f $(COMPOSE_FILE_) --env-file $(ENV_FILE) $(DOCKER_UP)
+
+exec_nsync:
+	$(DOCKER) -f $(COMPOSE_FILE_) --env-file $(ENV_FILE) exec $(SERVICES_STORAGE) bash
+
+stop_nsync:
+	$(DOCKER) -f $(COMPOSE_FILE_) --env-file $(ENV_FILE) $(DOCKER_STOP)
 
 
 clean:

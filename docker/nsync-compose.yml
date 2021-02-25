@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+
+    nsync_storage:            
+      build:
+          context: ".."
+          dockerfile: "docker/Dockerfile-nsync"
+      hostname: storage_nsync
+      env_file:
+        - ../.env
+      volumes: 
+        - ${DOCKER_HOST_STORAGE_DIR}:/Storage/
+      restart: always
