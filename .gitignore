@@ -1,2 +1,8 @@
-.env
 *.gz*
+*.env*
+*.log
+*.pot
+*.pyc
+local_settings.py
+.idea/*
+*egg*

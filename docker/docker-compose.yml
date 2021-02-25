@@ -13,8 +13,7 @@ services:
         - "15432:15432"
       volumes:
         - ${DBDATA_DIR}/:/var/lib/postgresql/data
-      restart: always
       command: -p 15432
       expose:
-        - "15432
-
+        - "15432"
+      restart: alwaysS
