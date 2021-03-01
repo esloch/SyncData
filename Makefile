@@ -10,7 +10,7 @@ PROJECT_NAME := infodengue
 COMPOSE_FILE := docker/docker-compose.yml
 COMPOSE_FILE_ := docker/nsync-compose.yml
 DOCKER := docker-compose -p $(PROJECT_NAME)
-DOCKER_UP := up  --remove-orphans -d --no-build
+DOCKER_UP := up -d --no-build
 DOCKER_STOP := rm --force --stop
 
 SERVICES_STORAGE := nsync_storage

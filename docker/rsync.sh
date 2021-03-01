@@ -1,22 +1,30 @@
-########################
-## Syncronized Servers ##
-########################
 #!/usr/bin/env bash
-. .env
-
 
 #####/Storage/#####
-#├── Relatorio
-#├── bucardo_data
-#├── docker_dir
-#├── infodengue_data
-#├── infodengue_pg_data
-#├── staging_data
-#├── staging_pg_data
-####################
+# Relatorio
+# Bucardo_data
+# docker_dir
+# infodengue_data
+# infodengue_pg_data
+# staging_data
+# staging_pg_data
+######################
 
+# ==> HETZNER <== #
+### GET FGV TO HETZNER
+rsync -azPv -O --progress $SERVER_FGV /Storage/
+### GET FIOCRUZ TO HETZNER
+rsync -azPv -O --progress $SERVER_FIOCRUZ /Storage/
 
-# Commands
-rsync -azPv --progress /Storage/infodengue_data $SERVER_HETZNER_URL
-# rsync -azPv --progress /Storage/infodengue_data $SERVER_FIOCRUZ_URL
-# rsync -azPv --progress /Storage/teste SERVER_FIOCRUZ_URL
+### FROM HETZNER TO FGV
+rsync -azPv --progress /Storage/teste $SERVER_FGV
+### FROM HETZNER TO FIOCRUZ
+rsync -azPv --progress /Storage/teste $SERVER_FIOCRUZ
+
+# ==> FGV <== #
+### FROM FGV TO FIOCRUZ
+rsync -azPv --progress /Storage/teste $SERVER_FIOCRUZ
+
+# ==> FIOCRUZ <== #
+### FROM FIOCRUZ TO FGV
+rsync -azPv --progress /Storage/teste $SERVER_FGV

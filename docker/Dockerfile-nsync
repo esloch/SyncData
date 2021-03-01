@@ -3,8 +3,11 @@ FROM ubuntu:latest
 
 RUN apt-get update && apt-get -y install cron rsync openssh-client vim
 
-# Create administrador user
-RUN useradd --shell=/bin/bash --home=/home/administrador/ --create-home administrador
+# Create deploy user
+ARG HOST_UID
+ARG HOST_GID
+COPY docker/prepare_permission.sh /prepare_permission.sh
+RUN /prepare_permission.sh
 
 RUN echo "administrador"  > /etc/cron.allow
 
@@ -26,6 +29,11 @@ RUN chown -R administrador:administrador /tasks
 # Apply cron job
 # RUN crontab /etc/cron.d/cron-jobs
 RUN crontab -u administrador /etc/cron.d/cron-jobs
+
+# Create ARGS SERVERS
+ARG SERVER_FGV
+ARG SERVER_FIOCRUZ
+ARG SERVER_HETZNER
 
 # Run the command on container startup
 CMD cron && tail -f /var/log/cron.log
