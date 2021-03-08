@@ -29,10 +29,10 @@ download_denguedb:
 
 # Configure database in the container
 build_denguedb:
-	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build
+	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build $(SERVICES_DATABASE)
 
 deploy_denguedb:
-	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) $(DOCKER_UP)
+	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) $(DOCKER_UP) $(SERVICES_DATABASE)
 
 exec_denguedb:
 	$(DOCKER) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) exec $(SERVICES_DATABASE) bash
@@ -42,9 +42,12 @@ stop_denguedb:
 
 recreate_container_denguedb:
 	make stop_denguedb
+	rm -rf docker/dev_dumps/*.gz
+	rm -rf /Storage/infodengue_pg_data/
 	# make download_demodb
 	make download_denguedb
 	make build_denguedb
+	make deploy_denguedb
 
 
 # NSYNC STORAGE
